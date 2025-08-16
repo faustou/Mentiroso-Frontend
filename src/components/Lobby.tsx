@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { PRESETS } from '../data/presets.tsx';
-import Select from './ui/Select';
+import Select from './ui/Select'; // ← ahora sí hay default export
 
 type Props = {
   categories: string[];
@@ -78,7 +78,6 @@ export default function Lobby({ categories, onStart }: Props) {
 
   const canStart = selected.length >= 3;
 
-  // Opciones para los selects custom
   const categoryOptions = categories.map(c => ({ value: c, label: c }));
   const liarOptions = Array.from({ length: Math.max(1, maxLiars) }, (_, i) => {
     const n = i + 1;
@@ -90,7 +89,6 @@ export default function Lobby({ categories, onStart }: Props) {
       <h2>Lobby</h2>
       <p className="muted">Elegí jugadores, categoría y cantidad de mentirosos.</p>
 
-      {/* Roster */}
       <div className="grid">
         {PRESETS.map(p => {
           const isSelected = selected.some(s => s.id === p.id);
@@ -123,7 +121,6 @@ export default function Lobby({ categories, onStart }: Props) {
         })}
       </div>
 
-      {/* Agregar manual */}
       <div className="card" style={{ marginTop: 12 }}>
         <h3 style={{ marginTop: 0 }}>Agregar participante manual</h3>
         <div className="row">
@@ -139,9 +136,7 @@ export default function Lobby({ categories, onStart }: Props) {
 
         {selected.length > 0 && (
           <>
-            <p className="muted" style={{ marginTop: 4 }}>
-              Participantes: {selected.length}
-            </p>
+            <p className="muted" style={{ marginTop: 4 }}>Participantes: {selected.length}</p>
             <div className="list">
               {selected.map(p => (
                 <div key={p.id} className="row" style={{ justifyContent: 'space-between' }}>
@@ -157,14 +152,13 @@ export default function Lobby({ categories, onStart }: Props) {
         )}
       </div>
 
-      {/* Configuración (Select custom) */}
       <div className="row" style={{ marginTop: 16 }}>
         <label style={{ display: 'grid', gap: 6 }}>
           Categoría
           <Select
             value={category}
             options={categoryOptions}
-            onChange={v => setCategory(v)}
+            onChange={(v: string) => setCategory(v)}   
           />
         </label>
 
@@ -173,7 +167,7 @@ export default function Lobby({ categories, onStart }: Props) {
           <Select
             value={String(liarsClamped)}
             options={liarOptions}
-            onChange={v => setLiarsCount(parseInt(v, 10))}
+            onChange={(v: string) => setLiarsCount(parseInt(v, 10))}
           />
           <span className="muted" style={{ fontSize: 12 }}>
             Máx: {Math.max(1, maxLiars)} para {selected.length} jugadores
@@ -190,3 +184,4 @@ export default function Lobby({ categories, onStart }: Props) {
     </section>
   );
 }
+
