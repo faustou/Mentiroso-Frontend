@@ -155,20 +155,29 @@ export default function Lobby({ categories, onStart }: Props) {
       <div className="row" style={{ marginTop: 16 }}>
         <label style={{ display: 'grid', gap: 6 }}>
           Categoría
-          <Select
+          <select
             value={category}
-            options={categoryOptions}
-            onChange={(v: string) => setCategory(v)}   
-          />
+            onChange={(e) => setCategory(e.target.value)}
+            aria-label="Categoría"
+          >
+            {categories.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
         </label>
 
         <label style={{ display: 'grid', gap: 6 }}>
           # de mentirosos
-          <Select
+          <select
             value={String(liarsClamped)}
-            options={liarOptions}
-            onChange={(v: string) => setLiarsCount(parseInt(v, 10))}
-          />
+            onChange={(e) => setLiarsCount(parseInt(e.target.value, 10))}
+            disabled={selected.length < 3}
+            aria-label="Cantidad de mentirosos"
+          >
+            {Array.from({ length: Math.max(1, maxLiars) }, (_, i) => i + 1).map((n) => (
+              <option key={n} value={n}>{n}</option>
+            ))}
+          </select>
           <span className="muted" style={{ fontSize: 12 }}>
             Máx: {Math.max(1, maxLiars)} para {selected.length} jugadores
           </span>

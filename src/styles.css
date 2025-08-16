@@ -372,3 +372,28 @@ select {
 
 /* Para que el botón no se vea “presionado” en móviles al tocar */
 @media (hover:none){ .slt-btn:active{ transform:none; } }
+
+
+/* Select nativo, compacto y predecible */
+select {
+  -webkit-appearance: menulist;
+  appearance: auto;
+  background: rgba(255,255,255,.10);   /* leve para que combine con tu card */
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.20);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 16px;
+  width: 100%;
+}
+
+/* iOS no necesita flechita css; evitamos hacks que rompen el popup */
+@supports (-webkit-touch-callout: none) {
+  select {
+    background-image: none !important;
+    padding-right: 12px !important;
+  }
+}
+
+/* Por si tenías overflow oculto en algún card */
+.card { overflow: visible; }
