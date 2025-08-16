@@ -397,3 +397,35 @@ select {
 
 /* Por si tenías overflow oculto en algún card */
 .card { overflow: visible; }
+
+
+/* ===== Pills ===== */
+.pill-group{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill{
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 800;
+  letter-spacing: .2px;
+  cursor: pointer;
+  transition: transform .05s ease, filter .12s ease, box-shadow .12s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,.20);
+}
+
+.pill:hover{ filter: brightness(1.08); transform: translateY(-1px); }
+@media (hover:none){ .pill:hover{ transform:none; } .pill:active{ transform: scale(.98); } }
+.pill:disabled{ opacity:.5; cursor: not-allowed; }
+
+.pill.is-active{
+  background: #F7C21B;          /* mismo amarillo de tu UI */
+  color: #1a1a1a;
+  border-color: rgba(0,0,0,.15);
+  box-shadow: 0 8px 20px rgba(247,194,27,.35);
+}

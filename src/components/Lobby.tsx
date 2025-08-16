@@ -1,4 +1,3 @@
-// src/components/Lobby.tsx
 import { useMemo, useState } from 'react';
 import { PRESETS } from '../data/presets.tsx';
 
@@ -28,13 +27,14 @@ export default function Lobby({ categories, onStart }: Props) {
   const [liarsCount, setLiarsCount] = useState<number>(1);
   const [manualName, setManualName] = useState<string>('');
 
-  // Máximo de mentirosos según cantidad de jugadores
+  // Máximo de mentirosos según # de jugadores
   const maxLiars = useMemo(() => {
     const n = selected.length;
     return Math.max(1, Math.floor((n - 1) / 2));
   }, [selected.length]);
 
   const liarsClamped = Math.min(Math.max(1, liarsCount), Math.max(1, maxLiars));
+  const canStart = selected.length >= 3;
 
   function toggleSelect(p: { id: string; name: string }) {
     setSelected(prev => {
@@ -77,8 +77,6 @@ export default function Lobby({ categories, onStart }: Props) {
       return next;
     });
   }
-
-  const canStart = selected.length >= 3;
 
   return (
     <section className="card">
@@ -152,37 +150,43 @@ export default function Lobby({ categories, onStart }: Props) {
         )}
       </div>
 
-      {/* Configuración de partida */}
+      {/* Configuración de partida (PILLS) */}
       <div className="row" style={{ marginTop: 16 }}>
-        <label style={{ display: 'grid', gap: 6 }}>
-          Categoría
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            aria-label="Categoría"
-          >
-            {categories.map((c) => (
-              <option key={c} value={c}>{c}</option>
+        <div style={{ display: 'grid', gap: 8, width: '100%' }}>
+          <span>Categoría</span>
+          <div className="pill-group">
+            {categories.map(c => (
+              <button
+                key={c}
+                className={`pill ${category === c ? 'is-active' : ''}`}
+                onClick={() => setCategory(c)}
+                aria-pressed={category === c}
+              >
+                {c}
+              </button>
             ))}
-          </select>
-        </label>
+          </div>
+        </div>
 
-        <label style={{ display: 'grid', gap: 6 }}>
-          # de mentirosos
-          <select
-            value={String(liarsClamped)}
-            onChange={(e) => setLiarsCount(parseInt(e.target.value, 10))}
-            disabled={selected.length < 3}
-            aria-label="Cantidad de mentirosos"
-          >
-            {Array.from({ length: Math.max(1, maxLiars) }, (_, i) => i + 1).map((n) => (
-              <option key={n} value={n}>{n}</option>
+        <div style={{ display: 'grid', gap: 8, width: '100%' }}>
+          <span># de mentirosos</span>
+          <div className="pill-group">
+            {Array.from({ length: Math.max(1, maxLiars) }, (_, i) => i + 1).map(n => (
+              <button
+                key={n}
+                className={`pill ${liarsClamped === n ? 'is-active' : ''}`}
+                onClick={() => setLiarsCount(n)}
+                disabled={selected.length < 3}
+                aria-pressed={liarsClamped === n}
+              >
+                {n}
+              </button>
             ))}
-          </select>
+          </div>
           <span className="muted" style={{ fontSize: 12 }}>
             Máx: {Math.max(1, maxLiars)} para {selected.length} jugadores
           </span>
-        </label>
+        </div>
       </div>
 
       <div className="row" style={{ marginTop: 8 }}>
