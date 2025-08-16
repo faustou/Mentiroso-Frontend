@@ -24,7 +24,7 @@ export default function Vote({ players, currentIndex, onSubmitVote }: Props) {
       <p>La votacion es anonima y en silencio</p>
       <div className='card-complot'>
         <img
-          src="../../public/players/complot.jpg"
+          src="/players/complot.jpg"
           alt="complot"
           className='complot'
         />
