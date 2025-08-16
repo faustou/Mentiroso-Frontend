@@ -324,3 +324,51 @@ select {
     padding-right: 12px !important;
   }
 }
+
+
+/* Asegurá que los menús puedan salir del card sin recortes */
+.card { overflow: visible; }
+
+/* Select compacto y sobrio */
+.slt { position: relative; width: 100%; max-width: 100%; }
+
+.slt-btn{
+  width: 100%;
+  height: 44px;                     /* altura de input nativo */
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 12px;
+  padding: 0 12px;                  /* compacto */
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: none;
+}
+
+.slt-caret{ opacity:.7; margin-left: 8px; }
+
+.slt-menu{
+  position: absolute;
+  left: 0; right: 0; top: calc(100% + 6px);
+  background: #14161a;              /* panel sólido (no el gradiente del body) */
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  max-height: 220px;                /* no gigante */
+  overflow: auto;
+  z-index: 1000;                    /* arriba del card */
+}
+
+.slt-opt{
+  display:block; width:100%; text-align:left;
+  padding: 10px 12px;               /* más chico */
+  font-size: 15px; line-height: 20px;
+  background: transparent; border: 0; color: #fff; cursor: pointer;
+}
+.slt-opt:hover{ background: rgba(255,255,255,.08); }
+.slt-opt.is-active{
+  background: rgba(77,163,255,.18);
+  border-left: 3px solid #4da3ff;
+}
+
+/* Para que el botón no se vea “presionado” en móviles al tocar */
+@media (hover:none){ .slt-btn:active{ transform:none; } }
