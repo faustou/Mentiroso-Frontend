@@ -1,6 +1,6 @@
+// src/components/Lobby.tsx
 import { useMemo, useState } from 'react';
 import { PRESETS } from '../data/presets.tsx';
-import Select from './ui/Select'; // ← ahora sí hay default export
 
 type Props = {
   categories: string[];
@@ -11,6 +11,7 @@ type Props = {
   ) => void;
 };
 
+// Genera un id simple para jugadores manuales
 function makeIdFromName(name: string) {
   return (
     name
@@ -27,6 +28,7 @@ export default function Lobby({ categories, onStart }: Props) {
   const [liarsCount, setLiarsCount] = useState<number>(1);
   const [manualName, setManualName] = useState<string>('');
 
+  // Máximo de mentirosos según cantidad de jugadores
   const maxLiars = useMemo(() => {
     const n = selected.length;
     return Math.max(1, Math.floor((n - 1) / 2));
@@ -78,17 +80,12 @@ export default function Lobby({ categories, onStart }: Props) {
 
   const canStart = selected.length >= 3;
 
-  const categoryOptions = categories.map(c => ({ value: c, label: c }));
-  const liarOptions = Array.from({ length: Math.max(1, maxLiars) }, (_, i) => {
-    const n = i + 1;
-    return { value: String(n), label: String(n) };
-  });
-
   return (
     <section className="card">
       <h2>Lobby</h2>
       <p className="muted">Elegí jugadores, categoría y cantidad de mentirosos.</p>
 
+      {/* Roster de jugadores predefinidos */}
       <div className="grid">
         {PRESETS.map(p => {
           const isSelected = selected.some(s => s.id === p.id);
@@ -121,6 +118,7 @@ export default function Lobby({ categories, onStart }: Props) {
         })}
       </div>
 
+      {/* Agregar participante manual */}
       <div className="card" style={{ marginTop: 12 }}>
         <h3 style={{ marginTop: 0 }}>Agregar participante manual</h3>
         <div className="row">
@@ -136,7 +134,9 @@ export default function Lobby({ categories, onStart }: Props) {
 
         {selected.length > 0 && (
           <>
-            <p className="muted" style={{ marginTop: 4 }}>Participantes: {selected.length}</p>
+            <p className="muted" style={{ marginTop: 4 }}>
+              Participantes: {selected.length}
+            </p>
             <div className="list">
               {selected.map(p => (
                 <div key={p.id} className="row" style={{ justifyContent: 'space-between' }}>
@@ -152,6 +152,7 @@ export default function Lobby({ categories, onStart }: Props) {
         )}
       </div>
 
+      {/* Configuración de partida */}
       <div className="row" style={{ marginTop: 16 }}>
         <label style={{ display: 'grid', gap: 6 }}>
           Categoría
@@ -193,4 +194,3 @@ export default function Lobby({ categories, onStart }: Props) {
     </section>
   );
 }
-
