@@ -1,4 +1,3 @@
-import React from 'react';
 import { PRESETS } from '../data/presets';
 import PlayerTile from './PlayerTile';
 

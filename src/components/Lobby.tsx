@@ -1,5 +1,5 @@
 // src/components/Lobby.tsx
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 // Ajustá la ruta si tu archivo está en otro lugar
 import { PRESETS } from '../data/presets.tsx';

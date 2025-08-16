@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Player, RoundState } from './types';
 import { fetchCategories, fetchSecret } from './lib/api';
 import Lobby from './components/Lobby';

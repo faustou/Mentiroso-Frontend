@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { PresetPlayer } from '../data/presets';
 
 // Render de una sola “carta” de jugador

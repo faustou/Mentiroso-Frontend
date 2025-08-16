@@ -1,5 +1,5 @@
 // src/components/Reveal.tsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type { Player } from '../types';
 
 interface Props {
