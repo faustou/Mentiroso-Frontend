@@ -44,7 +44,7 @@ export default function App() {
       const players: Player[] = playersIn.map((p) => ({
         id: p.id,
         name: p.name,
-        role: liarIds.includes(p.id) ? 'MENTIROSO' : 'NORMAL',
+        role: liarIds.includes(p.id) ? ('MENTIROSO' as const) : ('NORMAL' as const),
         voteForId: undefined
       }));
 
@@ -155,10 +155,10 @@ export default function App() {
     }
 
     // Reasignar roles (mismos mentirosos restantes) y limpiar votos
-    const rebuilt = nextPlayers.map((p) => ({
+    const rebuilt: Player[] = nextPlayers.map((p) => ({
       id: p.id,
       name: p.name,
-      role: nextLiarIds.includes(p.id) ? 'MENTIROSO' : 'NORMAL',
+      role: nextLiarIds.includes(p.id) ? ('MENTIROSO' as const) : ('NORMAL' as const),
       voteForId: undefined
     }));
 

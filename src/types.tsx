@@ -1,9 +1,10 @@
 export type Phase = 'lobby' | 'reveal' | 'vote' | 'outcome' | 'ready' | 'gameover';
+export type Role = 'MENTIROSO' | 'NORMAL';
 
 export interface Player {
   id: string;
   name: string;
-  role: 'MENTIROSO' | 'NORMAL';
+  role: Role;
   voteForId?: string;
 }
 
@@ -27,4 +28,9 @@ export interface RoundState {
     image?: string;
     [k: string]: any;
   };
+}
+
+export interface RandomResult {
+  text: string;
+  meta?: { image?: string; [k: string]: any };
 }
